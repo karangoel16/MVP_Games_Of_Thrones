@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".QuotesFragment">
+    tools:context=".QuotesFragment"
+    android:id="@+id/cl_quotes_fragment">
 
     <TextView
         android:id="@+id/tv_quote"
