@@ -13,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class BaseFragment extends Fragment {
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.karangoel16.quotes.BasePresenter.BaseUI;
+
+public abstract class BaseFragment extends Fragment implements BaseUI {
 
     @Nullable
     @Override
@@ -33,4 +36,12 @@ public abstract class BaseFragment extends Fragment {
     }
 
     abstract void inject();
+
+    public void showError(Exception e) {
+        new MaterialDialog.Builder(getContext())
+                .title(getString(R.string.error))
+                .content(e.getMessage())
+                .cancelable(true)
+                .show();
+    }
 }

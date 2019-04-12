@@ -1,5 +1,6 @@
 package com.karangoel16.quotes;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 

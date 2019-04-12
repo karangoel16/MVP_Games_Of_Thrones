@@ -16,7 +16,9 @@ public class Quotes {
     }
 
     public void init(Configuration configuration) {
-        coreComponent = DaggerCoreComponent.builder().quotes(this).build();
+        coreComponent = DaggerCoreComponent.builder()
+                .configuration(configuration)
+                .build();
         coreComponent.inject(this);
     }
 

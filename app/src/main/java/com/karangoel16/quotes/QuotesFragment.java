@@ -4,11 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import dagger.Binds;
 import dagger.Component;
 import dagger.Module;
@@ -16,15 +20,30 @@ import dagger.Provides;
 
 public class QuotesFragment extends BaseFragment implements QuotesPresenter.QuotesPresenterUI {
 
-    @BindView(R.id.textView)
-    TextView text_input;
+    @BindView(R.id.tv_quote)
+    TextView tv_quote;
+
+    @BindView(R.id.tv_author)
+    TextView tv_author;
+
+    @BindView(R.id.btn_refresh)
+    Button btn_refresh;
+
+    @Inject
+    QuotesPresenter quotesPresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, view);
+        quotesPresenter.init();
         return view;
+    }
+
+    @OnClick(R.id.btn_refresh)
+    void refreshRandom() {
+        quotesPresenter.init();
     }
 
     public static QuotesFragment getInstance() {
@@ -47,6 +66,12 @@ public class QuotesFragment extends BaseFragment implements QuotesPresenter.Quot
                 .module(new QuotesFragment.Module(this))
                 .coreComponent(Quotes.getInstance().getCoreComponent())
                 .build().inject(this);
+    }
+
+    @Override
+    public void showQuotes(Response response) {
+        tv_quote.setText(response.getQuote());
+        tv_author.setText("- " + response.getCharacter());
     }
 
     @FragmentScope

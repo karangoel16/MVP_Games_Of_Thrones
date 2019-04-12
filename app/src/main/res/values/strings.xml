@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Quotes</string>
-    <string name="server">http:\\\\hello.com</string>
+    <string name="server">https://got-quotes.herokuapp.com/</string>
+    <string name="error">Error</string>
+    <string name="refresh">REFRESH</string>
+    <string name="randomQuote">Random Quote</string>
 </resources>
