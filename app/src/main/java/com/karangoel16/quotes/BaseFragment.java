@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.CallSuper;
 import androidx.annotation.Nullable;
 import butterknife.ButterKnife;
+import dagger.Module;
+import dagger.Provides;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +21,16 @@ public abstract class BaseFragment extends Fragment {
         final View fragmentView = inflater.inflate(layoutId(), container, false);
         //ButterKnife.bind(this, fragmentView);
         bindView(fragmentView);
+        inject();
         return fragmentView;
     }
 
     abstract int layoutId();
 
     @CallSuper
-    void bindView(View view){
+    void bindView(View view) {
 
     }
+
+    abstract void inject();
 }

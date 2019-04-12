@@ -9,8 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.Binds;
+import dagger.Component;
+import dagger.Module;
+import dagger.Provides;
 
-public class QuotesFragment extends BaseFragment {
+public class QuotesFragment extends BaseFragment implements QuotesPresenter.QuotesPresenterUI {
 
     @BindView(R.id.textView)
     TextView text_input;
@@ -35,5 +39,35 @@ public class QuotesFragment extends BaseFragment {
     @Override
     void bindView(View view) {
         super.bindView(view);
+    }
+
+    @Override
+    void inject() {
+        DaggerQuotesFragment_Component.builder()
+                .module(new QuotesFragment.Module(this))
+                .coreComponent(Quotes.getInstance().getCoreComponent())
+                .build().inject(this);
+    }
+
+    @FragmentScope
+    @dagger.Component(modules = QuotesFragment.Module.class, dependencies = CoreComponent.class)
+    interface Component {
+        public void inject(QuotesFragment quotesFragment);
+    }
+
+    @dagger.Module
+    static class Module {
+        QuotesFragment quotesFragment;
+
+        Module(QuotesFragment quotesFragment) {
+            this.quotesFragment = quotesFragment;
+        }
+
+        @Provides
+        @FragmentScope
+        public QuotesPresenter.QuotesPresenterUI provideQuotesFragment() {
+            return quotesFragment;
+        }
+
     }
 }
