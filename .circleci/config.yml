@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/code
     docker:
-    - image: circleci/android:api-28-alpha
+    - image: runmymind/docker-android-sdk:latest
       environment:
         ANDROID_HOME: /opt/android-sdk-linux
     environment:
